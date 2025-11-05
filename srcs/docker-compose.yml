@@ -1,0 +1,13 @@
+services:
+  nginx:
+    build: ./requirements/nginx
+    restart: always
+#    ports:
+#      - MUST be only accesible via 443 -> "443:443"
+#  wordpress:
+#    build: ./requirements/wordpress
+#    restart: always
+#
+#  mariadb:
+#    build: ./requirements/mariadb
+#    restart: always
