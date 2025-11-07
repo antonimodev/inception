@@ -2,11 +2,18 @@
 up:
 	@docker compose -f ./srcs/docker-compose.yml up
 
+
+# Start all servies and force rebuild containers
+build:
+	@docker compose -f ./srcs/docker-compose.yml up --build
+
+
 # Stop and remove all containers defined in docker-compose
 down:
 	@docker compose -f ./srcs/docker-compose.yml down
 
-# Same as down but also removes volumes (data persistence)
+
+# Same as "down" but also removes volumes (data persistence)
 # Probably use "down-v:" as rule name
-del:
+downv:
 	@docker compose -f ./srcs/docker-compose.yml down -v
