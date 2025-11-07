@@ -1,6 +1,7 @@
 #!/bin/sh
-echo "script with echo test"
-nginx -v
+
+# -g for general rules of nginx and use "daemon off" to avoid execute at background
+nginx -g "daemon off;"
 
 # Routes
-# nginx.conf -> /usr/local/nginx/conf
+# nginx.conf -> /etc/nginx/nginx.conf

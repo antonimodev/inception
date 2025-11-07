@@ -17,3 +17,12 @@ down:
 # Probably use "down-v:" as rule name
 downv:
 	@docker compose -f ./srcs/docker-compose.yml down -v
+
+# Remove all containers and images
+rm-all:
+	@docker rm $$(docker ps -aq) 2>/dev/null || true
+	@docker rmi $$(docker images -q) 2>/dev/null || true
+
+show:
+	@docker ps -a
+	@docker images -a
