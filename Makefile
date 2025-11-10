@@ -1,3 +1,6 @@
+COLOR = \033[38;5;208m
+RESET = \033[0m
+
 # Start all services in docker-compose
 up:
 	@docker compose -f ./srcs/docker-compose.yml up
@@ -26,3 +29,12 @@ rm-all:
 show:
 	@docker ps -a
 	@docker images -a
+
+help:
+	@echo "$(COLOR)- up$(RESET): Start all services in docker-compose"
+	@echo "$(COLOR)- build$(RESET): Start all services and force rebuild containers"
+	@echo "$(COLOR)- down$(RESET): Stop and remove all containers defined in docker-compose"
+	@echo "$(COLOR)- downv$(RESET): Same as 'down' but also removes volumes (data persistence)"
+	@echo "$(COLOR)- rm-all$(RESET): Remove all containers and images"
+	@echo "$(COLOR)- show$(RESET): Show all containers and images"
+	@echo "$(COLOR)- help$(RESET): Show this help message"
