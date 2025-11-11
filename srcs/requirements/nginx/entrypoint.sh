@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # -g for general rules of nginx and use "daemon off" to avoid execute at background
-nginx -g "daemon off;"
+cat /etc/nginx/nginx.conf
+# nginx -g "daemon off;"
 
 # Routes
 # nginx.conf -> /etc/nginx/nginx.conf
