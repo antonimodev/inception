@@ -7,9 +7,11 @@ services:
 #    ports:
 #      - MUST be only accesible via 443 -> "443:443"
 
-#  mariadb:
-#    build: ./requirements/mariadb
-#    restart: always
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb_img
+    container_name: mariadb_container
+    restart: always
 
 #  wordpress:
 #    build: ./requirements/wordpress

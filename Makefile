@@ -44,6 +44,24 @@ show:
 	@docker images -a
 
 
+nginx:
+	@docker build -t nginx_img -f ./srcs/requirements/nginx/Dockerfile ./srcs/requirements/nginx
+	@docker rm -f nginx_container 2>/dev/null || true
+	@docker run --name nginx_container nginx_img
+
+
+db:
+	@docker build -t mariadb_img -f ./srcs/requirements/mariadb/Dockerfile ./srcs/requirements/mariadb
+	@docker rm -f mariadb_container 2>/dev/null || true
+	@docker run --name mariadb_container mariadb_img
+
+
+#wp:
+#	@docker build -t wordpress_img -f ./srcs/requirements/wp/Dockerfile ./srcs/requirements/wordpress
+#	@docker rm -f wordpress_container 2>/dev/null || true
+#	@docker run --name wordpress_container wordpress_img
+
+
 # Show all commands
 help:
 	@echo "$(COLOR)- up$(RESET): Start all services in docker-compose"
@@ -54,4 +72,7 @@ help:
 	@echo "$(COLOR)- stop$(RESET): Stop current container running"
 	@echo "$(COLOR)- rm-all$(RESET): Remove all containers and images"
 	@echo "$(COLOR)- show$(RESET): Show all containers and images"
+	@echo "$(COLOR)- nginx$(RESET): Build and run nginx container"
+	@echo "$(COLOR)- db$(RESET): Build and run mariadb container"
+#	@echo "$(COLOR)- wp$(RESET): Build and run wordpress container"
 	@echo "$(COLOR)- help$(RESET): Show this help message"

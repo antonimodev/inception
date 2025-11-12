@@ -9,9 +9,3 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 cp /conf/nginx.conf /etc/nginx/nginx.conf
 exec nginx
-
-# -g for general rules of nginx and use "daemon off" to avoid execute at background
-# nginx -g "daemon off;"
-
-# Routes
-# nginx.conf -> /etc/nginx/nginx.conf

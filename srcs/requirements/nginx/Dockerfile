@@ -12,6 +12,7 @@ RUN chmod +x /entrypoint.sh && \
 
 # Executing at start of run container
 ENTRYPOINT [ "/entrypoint.sh" ]
+
 # This will be args of executable by default
 # CMD [ ]
 
