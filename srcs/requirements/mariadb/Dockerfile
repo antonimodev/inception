@@ -9,3 +9,5 @@ RUN chmod +x /entrypoint.sh && \
 	rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT [ "/entrypoint.sh" ]
+
+EXPOSE 3306

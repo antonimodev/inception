@@ -9,7 +9,7 @@ build:
 
 # Start all services in docker-compose
 up:
-	@docker compose -f ./srcs/docker-compose.yml up
+	@docker compose -f ./srcs/docker-compose.yml -p inception up
 
 
 # Stop and remove all containers defined in docker-compose
@@ -56,10 +56,10 @@ db:
 	@docker run --name mariadb_container mariadb_img
 
 
-#wp:
-#	@docker build -t wordpress_img -f ./srcs/requirements/wp/Dockerfile ./srcs/requirements/wordpress
-#	@docker rm -f wordpress_container 2>/dev/null || true
-#	@docker run --name wordpress_container wordpress_img
+wp:
+	@docker build -t wordpress_img -f ./srcs/requirements/wordpress/Dockerfile ./srcs/requirements/wordpress
+	@docker rm -f wordpress_container 2>/dev/null || true
+	@docker run --name wordpress_container wordpress_img
 
 
 # Show all commands
@@ -74,5 +74,5 @@ help:
 	@echo "$(COLOR)- show$(RESET): Show all containers and images"
 	@echo "$(COLOR)- nginx$(RESET): Build and run nginx container"
 	@echo "$(COLOR)- db$(RESET): Build and run mariadb container"
-#	@echo "$(COLOR)- wp$(RESET): Build and run wordpress container"
+	@echo "$(COLOR)- wp$(RESET): Build and run wordpress container"
 	@echo "$(COLOR)- help$(RESET): Show this help message"
