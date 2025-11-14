@@ -6,6 +6,10 @@ services:
     restart: always
     ports:
       - "443:443"
+    volumes:
+      - wordpress_files:/var/www/html # Just need save wordpress files in this directory
+    depends_on:
+      - wordpress
 
   mariadb:
     build: ./requirements/mariadb
@@ -18,5 +22,10 @@ services:
     image: wordpress_img
     container_name: wordpress_container
     restart: always
+    volumes:
+      - wordpress_files:/var/www/html
     depends_on:
       - mariadb
+
+volumes:
+  wordpress_files:
