@@ -1,7 +1,6 @@
 FROM debian:12
 
 COPY entrypoint.sh /entrypoint.sh
-COPY conf/ /conf/
 
 # Executed while building
 RUN chmod +x /entrypoint.sh && \
@@ -10,10 +9,10 @@ RUN chmod +x /entrypoint.sh && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
+
+COPY conf/nginx.conf /etc/nginx/nginx.conf
+
 # Executing at start of run container
 ENTRYPOINT [ "/entrypoint.sh" ]
-
-# This will be args of executable by default
-# CMD [ ]
 
 EXPOSE 443

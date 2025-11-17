@@ -36,6 +36,7 @@ stop:
 rm-all:
 	@docker rm $$(docker ps -aq) 2>/dev/null || true
 	@docker rmi $$(docker images -q) 2>/dev/null || true
+	@docker builder prune -a -f 2>/dev/null || true
 
 
 # Show all containers and images

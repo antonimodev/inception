@@ -3,13 +3,13 @@ FROM debian:12
 
 COPY entrypoint.sh /entrypoint.sh
 
-
 RUN chmod +x /entrypoint.sh
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates php-fpm php-mysql curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
 RUN mkdir -p /var/www/html
 
 # When use tar with --strip-components=1 we remove the top-level dir,

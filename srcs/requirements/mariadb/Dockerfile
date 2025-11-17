@@ -10,6 +10,9 @@ RUN chmod +x /entrypoint.sh && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
+# TESTING COPY CONFIG
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+
 ENTRYPOINT [ "/entrypoint.sh" ]
 
 EXPOSE 3306
