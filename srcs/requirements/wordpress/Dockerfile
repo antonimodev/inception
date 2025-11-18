@@ -18,6 +18,10 @@ RUN curl -O https://wordpress.org/latest.tar.gz && \
     tar -xzf latest.tar.gz -C /var/www/html --strip-components=1 && \
     rm latest.tar.gz
 
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
+
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html
 
