@@ -9,7 +9,7 @@ build:
 
 # Start all services in docker-compose
 up:
-	@docker compose -f ./srcs/docker-compose.yml -p inception up
+	@docker compose -f ./srcs/docker-compose.yml up
 
 
 # Stop and remove all containers defined in docker-compose
