@@ -1,5 +1,6 @@
 services:
   nginx:
+    pull_policy: never
     build: ./requirements/nginx
     image: nginx_img
     container_name: nginx_container
@@ -14,6 +15,7 @@ services:
       - inception
 
   mariadb:
+    pull_policy: never
     build: ./requirements/mariadb
     image: mariadb_img
     container_name: mariadb_container
@@ -29,6 +31,7 @@ services:
       - inception
 
   wordpress:
+    pull_policy: never
     build: ./requirements/wordpress
     image: wordpress_img
     container_name: wordpress_container
@@ -38,6 +41,11 @@ services:
       - WORDPRESS_DB_NAME=${MYSQL_DATABASE}
       - WORDPRESS_DB_USER=${SQL_USER}
       - WORDPRESS_DB_PASSWORD=${SQL_PASS}
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - WP_ADMIN_USER=${WP_ADMIN_USER}
+      - WP_ADMIN_PASS=${WP_ADMIN_PASS}
+      - WP_SECOND_USER=${WP_SECOND_USER}
+      - WP_SECOND_PASS=${WP_SECOND_PASS}
     volumes:
       - wordpress_files:/var/www/html
     depends_on:
@@ -52,3 +60,17 @@ networks:
 volumes:
   wordpress_files:
   mariadb_data:
+
+# volumes:
+#   wordpress_files:
+#     driver: local                                 # Use local driver to manage files (docker standard)
+#     driver_opts:
+#       type: none                                  # Don't use any special file system
+#       device: /home/antonimo/data/wordpress_files # Path must exist
+#       o: bind                                     # Use "bind mount", link host and container
+#   mariadb_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: /home/antonimo/data/mariadb_data
+#       o: bind
