@@ -53,24 +53,29 @@ services:
     networks:
       - inception
 
+volumes:
+  wordpress_files:
+    driver: local                                 # Use local driver to manage files (docker standard)
+    driver_opts:
+      type: none                                  # Don't use any special file system
+      device: /home/antonimo/data/wordpress_files # Path must exist
+      o: bind                                     # Use "bind mount", link host and container
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/antonimo/data/mariadb_data
+      o: bind
+
 networks:
   inception:
     driver: bridge
 
-volumes:
-  wordpress_files:
-  mariadb_data:
-
+# BEFORE: WORK WITHOUT LOCAL VOLUMES
+# networks:
+#   inception:
+#     driver: bridge
+# 
 # volumes:
 #   wordpress_files:
-#     driver: local                                 # Use local driver to manage files (docker standard)
-#     driver_opts:
-#       type: none                                  # Don't use any special file system
-#       device: /home/antonimo/data/wordpress_files # Path must exist
-#       o: bind                                     # Use "bind mount", link host and container
 #   mariadb_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: /home/antonimo/data/mariadb_data
-#       o: bind

@@ -4,11 +4,15 @@ RESET = \033[0m
 
 # Start all servies and force rebuild containers
 build:
+	@mkdir -p /home/antonimo/data/wordpress_files 2>/dev/null
+	@mkdir -p /home/antonimo/data/mariadb_data 2>/dev/null
 	@docker compose -f ./srcs/docker-compose.yml up --build
 
 
 # Start all services in docker-compose
 up:
+	@mkdir -p /home/antonimo/data/wordpress_files 2>/dev/null
+	@mkdir -p /home/antonimo/data/mariadb_data 2>/dev/null
 	@docker compose -f ./srcs/docker-compose.yml up
 
 
