@@ -1,55 +1,46 @@
 services:
   nginx:
-    pull_policy: never
+    container_name: nginx
+    image: nginx
     build: ./requirements/nginx
-    image: nginx_img
-    container_name: nginx_container
+    pull_policy: never
     restart: always
     ports:
       - "443:443"
     volumes:
-      - wordpress_files:/var/www/html # Just need save wordpress files in this directory
+      - wordpress_files:/var/www/html
     depends_on:
       - wordpress
+    env_file:
+      - ./.env
     networks:
       - inception
 
   mariadb:
-    pull_policy: never
+    container_name: mariadb
+    image: mariadb
     build: ./requirements/mariadb
-    image: mariadb_img
-    container_name: mariadb_container
+    pull_policy: never
     restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - SQL_USER=${SQL_USER}
-      - SQL_PASS=${SQL_PASS}
     volumes:
       - mariadb_data:/var/lib/mysql
+    env_file:
+      - ./.env
     networks:
       - inception
 
   wordpress:
-    pull_policy: never
+    container_name: wordpress
+    image: wordpress
     build: ./requirements/wordpress
-    image: wordpress_img
-    container_name: wordpress_container
+    pull_policy: never
     restart: always
-    environment:
-      - WORDPRESS_DB_HOST=mariadb:3306
-      - WORDPRESS_DB_NAME=${MYSQL_DATABASE}
-      - WORDPRESS_DB_USER=${SQL_USER}
-      - WORDPRESS_DB_PASSWORD=${SQL_PASS}
-      - DOMAIN_NAME=${DOMAIN_NAME}
-      - WP_ADMIN_USER=${WP_ADMIN_USER}
-      - WP_ADMIN_PASS=${WP_ADMIN_PASS}
-      - WP_SECOND_USER=${WP_SECOND_USER}
-      - WP_SECOND_PASS=${WP_SECOND_PASS}
     volumes:
       - wordpress_files:/var/www/html
     depends_on:
       - mariadb
+    env_file:
+      - ./.env
     networks:
       - inception
 
@@ -72,10 +63,10 @@ networks:
     driver: bridge
 
 # BEFORE: WORK WITHOUT LOCAL VOLUMES
-# networks:
-#   inception:
-#     driver: bridge
-# 
 # volumes:
 #   wordpress_files:
 #   mariadb_data:
+
+# networks:
+#   inception:
+#     driver: bridge

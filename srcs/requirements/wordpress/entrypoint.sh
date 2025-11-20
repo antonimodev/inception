@@ -8,9 +8,9 @@ sed -i 's/listen = .*/listen = 0.0.0.0:9000/' /etc/php/8.2/fpm/pool.d/www.conf
 if [ ! -f /var/www/html/wp-config.php ]; then
     cat > /var/www/html/wp-config.php <<- EOF
 <?php
-define( 'DB_NAME', '${WORDPRESS_DB_NAME}' );
-define( 'DB_USER', '${WORDPRESS_DB_USER}' );
-define( 'DB_PASSWORD', '${WORDPRESS_DB_PASSWORD}' );
+define( 'DB_NAME', '${MYSQL_DATABASE}' );
+define( 'DB_USER', '${SQL_USER}' );
+define( 'DB_PASSWORD', '${SQL_PASS}' );
 define( 'DB_HOST', '${WORDPRESS_DB_HOST}' );
 define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );

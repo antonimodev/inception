@@ -36,10 +36,12 @@ stop:
 	@docker compose -f ./srcs/docker-compose.yml stop
 
 
-# Remove all containers and images
+# Remove all containers, images and volumes
 rm-all:
+	@docker stop $$(docker ps -aq) 2>/dev/null || true
 	@docker rm $$(docker ps -aq) 2>/dev/null || true
 	@docker rmi $$(docker images -q) 2>/dev/null || true
+	@docker volume rm $$(docker volume ls -q) 2>/dev/null || true
 	@docker builder prune -a -f 2>/dev/null || true
 
 
@@ -47,24 +49,14 @@ rm-all:
 show:
 	@docker ps -a
 	@docker images -a
-
-
-nginx:
-	@docker build -t nginx_img -f ./srcs/requirements/nginx/Dockerfile ./srcs/requirements/nginx
-	@docker rm -f nginx_container 2>/dev/null || true
-	@docker run --name nginx_container nginx_img
+	@docker volume ls
 
 
 db:
-	@docker build -t mariadb_img -f ./srcs/requirements/mariadb/Dockerfile ./srcs/requirements/mariadb
-	@docker rm -f mariadb_container 2>/dev/null || true
-	@docker run --name mariadb_container mariadb_img
-
-
-wp:
-	@docker build -t wordpress_img -f ./srcs/requirements/wordpress/Dockerfile ./srcs/requirements/wordpress
-	@docker rm -f wordpress_container 2>/dev/null || true
-	@docker run --name wordpress_container wordpress_img
+	@docker compose -f ./srcs/docker-compose.yml up -d mariadb
+# 	@docker build -t mariadb_img -f ./srcs/requirements/mariadb/Dockerfile ./srcs/requirements/mariadb
+# 	@docker rm -f mariadb_container 2>/dev/null || true
+# 	@docker run --name mariadb_container mariadb_img
 
 
 # Show all commands
@@ -77,7 +69,5 @@ help:
 	@echo "$(COLOR)- stop$(RESET): Stop current container running"
 	@echo "$(COLOR)- rm-all$(RESET): Remove all containers and images"
 	@echo "$(COLOR)- show$(RESET): Show all containers and images"
-	@echo "$(COLOR)- nginx$(RESET): Build and run nginx container"
 	@echo "$(COLOR)- db$(RESET): Build and run mariadb container"
-	@echo "$(COLOR)- wp$(RESET): Build and run wordpress container"
 	@echo "$(COLOR)- help$(RESET): Show this help message"
