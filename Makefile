@@ -2,7 +2,7 @@ COLOR = \033[38;5;208m
 RESET = \033[0m
 
 
-# Start all servies and force rebuild containers
+# Start all services and force rebuild containers
 build:
 	@mkdir -p /home/antonimo/data/wordpress_files 2>/dev/null
 	@mkdir -p /home/antonimo/data/mariadb_data 2>/dev/null
@@ -44,6 +44,10 @@ rm-all:
 	@docker volume rm $$(docker volume ls -q) 2>/dev/null || true
 	@docker builder prune -a -f 2>/dev/null || true
 
+# rm-all + remove all local volumes
+fclean: rm-all
+	@sudo rm -rf /home/antonimo/data
+
 
 # Show all containers and images
 show:
@@ -53,6 +57,7 @@ show:
 
 
 db:
+	@mkdir -p /home/antonimo/data/mariadb_data 2>/dev/null || true
 	@docker compose -f ./srcs/docker-compose.yml up -d mariadb
 # 	@docker build -t mariadb_img -f ./srcs/requirements/mariadb/Dockerfile ./srcs/requirements/mariadb
 # 	@docker rm -f mariadb_container 2>/dev/null || true
@@ -68,6 +73,7 @@ help:
 	@echo "$(COLOR)- start$(RESET): Start an existent container"
 	@echo "$(COLOR)- stop$(RESET): Stop current container running"
 	@echo "$(COLOR)- rm-all$(RESET): Remove all containers and images"
+	@echo "$(COLOR)- fclean$(RESET): rm-all + remove local data"
 	@echo "$(COLOR)- show$(RESET): Show all containers and images"
 	@echo "$(COLOR)- db$(RESET): Build and run mariadb container"
 	@echo "$(COLOR)- help$(RESET): Show this help message"
